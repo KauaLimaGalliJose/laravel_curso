@@ -3,5 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    echo "Olá mundo";
+});
+
+Route::get('/about' , function(){
+
+    echo "Tela_2";
 });
