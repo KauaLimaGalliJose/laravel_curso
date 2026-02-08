@@ -8,5 +8,5 @@ Route::get('/', function () {
 
 Route::get('/about' , function(){
 
-    echo "Tela_2";
+    echo "teete";
 });
