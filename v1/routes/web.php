@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+
+    return  "Olá mundo";
 });
 
-Route::get('/', function () {
-    echo "Welcome to de mato";
-});
+
+Route::get('/login', [AuthController::class , 'login']);
+
