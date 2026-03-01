@@ -10,28 +10,45 @@
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8 col-lg-6 col-xl-6 d-flex justify-content-center align-items-center">
 
-                        <form class="card shadow p-4 w-100 m-3 v" action="index.php" method="post">
+                        <form class="card shadow p-4 w-100 m-3 v" action="/loginSubmit" method="post">
+                            @csrf
 
                             <h4 class="mb-4 text-center">Acesso ao Sistema</h4>
 
                             <div class="mb-3">
                                 <label class="form-label">Usuário</label>
-                                <input type="text" class="form-control" required>
+                                <input name="usuario" type="text" class="form-control @error('usuario') is-invalid @enderror " value="{{ old('usuario') }}">
+                                
+                                {{-- Erros de Validação --}}
+                                @error('usuario')
+                                    <label class="text-danger">{{ $message }}</label>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Local</label>
-                                <select class="form-select">
+                                <select name="local" class="form-select @error('local') is-invalid @enderror">
                                     <option>Escritório</option>
                                     <option>Operação</option>
                                     <option>Administrador</option>
                                 </select>
+
+                                {{-- Erros de Validação --}}
+                                @error('local')
+                                    <label class="text-danger">{{ $message }}</label>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Token</label>
-                                <input type="number" class="form-control" id="tokenInput" placeholder="Escreva aqui..."
-                                    required>
+                                <input name="token" type="number"
+                                    class="form-control @error('token') is-invalid @enderror" id="tokenInput"
+                                    value="{{ old('token') }}" placeholder="Escreva aqui..." min="0">
+
+                                {{-- Erros de Validação --}}
+                                @error('token')
+                                    <label class="text-danger">{{ $message }}</label>
+                                @enderror
                             </div>
 
                             <button class="btn btn-primary w-100 mb-3 py-2 mt-3" type="submit">
@@ -40,34 +57,42 @@
 
                             <!-- Teclado Numérico -->
                             <div id="numeros_div" class="d-flex row w-100 ">
-                                <div class="d-flex align-items-center justify-content-center  py-2" >
+                                <div class="d-flex align-items-center justify-content-center  py-2">
 
-                                    <button type="button" class="btn btn-outline-primary me-3 ms-3 col-4 py-4 "onclick="numeroBtn(1)">1</button>
-                                    <button type="button" class="btn btn-outline-primary me-3 col-4 py-4" onclick="numeroBtn(2)">2</button>
-                                    <button type="button" class="btn btn-outline-primary col-4 py-4"  onclick="numeroBtn(3)">3</button>
+                                    <button type="button"
+                                        class="btn btn-outline-primary me-3 ms-3 col-4 py-4 "onclick="numeroBtn(1)">1</button>
+                                    <button type="button" class="btn btn-outline-primary me-3 col-4 py-4"
+                                        onclick="numeroBtn(2)">2</button>
+                                    <button type="button" class="btn btn-outline-primary col-4 py-4"
+                                        onclick="numeroBtn(3)">3</button>
 
                                 </div>
 
                                 <div class="d-flex align-items-center justify-content-center  py-2">
-                                    <button type="button" class="btn btn-outline-primary me-3 ms-3 col-4 py-4"  onclick="numeroBtn(4)">4</button>
-                                    <button type="button" class="btn btn-outline-primary me-3 col-4 py-4"  onclick="numeroBtn(5)">5</button>
-                                    <button type="button" class="btn btn-outline-primary  col-4 py-4" onclick="numeroBtn(6)">6</button>
+                                    <button type="button" class="btn btn-outline-primary me-3 ms-3 col-4 py-4"
+                                        onclick="numeroBtn(4)">4</button>
+                                    <button type="button" class="btn btn-outline-primary me-3 col-4 py-4"
+                                        onclick="numeroBtn(5)">5</button>
+                                    <button type="button" class="btn btn-outline-primary  col-4 py-4"
+                                        onclick="numeroBtn(6)">6</button>
 
                                 </div>
 
                                 <div class="d-flex align-items-center justify-content-center  py-2">
-                                    <button type="button" class="btn btn-outline-primary me-3 ms-3 col-4 py-4" onclick="numeroBtn(7)">7</button>
-                                    <button type="button" class="btn btn-outline-primary me-3 col-4 py-4" onclick="numeroBtn(8)">8</button>
-                                    <button type="button" class="btn btn-outline-primary col-4 py-4" onclick="numeroBtn(9)">9</button>
+                                    <button type="button" class="btn btn-outline-primary me-3 ms-3 col-4 py-4"
+                                        onclick="numeroBtn(7)">7</button>
+                                    <button type="button" class="btn btn-outline-primary me-3 col-4 py-4"
+                                        onclick="numeroBtn(8)">8</button>
+                                    <button type="button" class="btn btn-outline-primary col-4 py-4"
+                                        onclick="numeroBtn(9)">9</button>
 
                                 </div>
 
                                 <div class="d-flex align-items-center justify-content-center  py-2">
-                                    <button type="button" class="btn btn-outline-primary col-6 py-4" onclick="numeroBtn(0)">0</button>
-                                </div>
-
-                                <div class="d-flex align-items-center justify-content-center ">
-                                    <button type="button" class="btn btn-danger col-12 mt-3" onclick="limparBtn()">Limpar Tudo</button>
+                                    <button type="button" class="btn btn-outline-primary ms-3 col-6 py-4"
+                                        onclick="numeroBtn(0)">0</button>
+                                    <button type="button" class="btn btn-danger col-6 ms-3 py-4"
+                                        onclick="limparBtn()">Limpar Tudo</button>
                                 </div>
                             </div>
 
@@ -80,8 +105,8 @@
         </div>
 
         <!-- LADO DIREITO -->
-        <div class="bg-light d-none d-lg-flex w-100 align-items-center justify-content-center">
-            <h3>Criar um Modelo em 3D</h3>
+        <div id="modelo3D" class="bg-light d-none d-lg-flex w-100 align-items-center justify-content-center">
+
         </div>
 
     </div>

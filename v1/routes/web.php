@@ -12,3 +12,5 @@ Route::get('/', function () {
 
 Route::get('/login', [AuthController::class , 'login']);
 
+Route::post('/loginSubmit' , [AuthController::class , 'loginSubmit']);
+
