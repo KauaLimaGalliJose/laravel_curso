@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class AuthController extends Controller
+class LoginUser extends Controller
 {
     public function login(){
 
@@ -35,6 +36,18 @@ class AuthController extends Controller
 
         $usuario =$dados->input('usuario');
 
+        
+        //conection
+        try{
+            
+            DB::connection()->getPdo();
+            echo 'conection Ok';
+        }
+        catch(\PDOException $e){
+                
+            echo "Erro conexão Banco =>" . $e->getMessage();
+            }
+            
         echo $usuario;
     }
 

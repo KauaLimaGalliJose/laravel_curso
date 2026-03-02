@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\MainController;
+use App\Http\Controllers\LoginUser;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    return  "Olá mundo";
+    return  view('telas.escritorio.escritorio');
 });
 
 
-Route::get('/login', [AuthController::class , 'login']);
+Route::get('/login', [LoginUser::class , 'login']);
 
-Route::post('/loginSubmit' , [AuthController::class , 'loginSubmit']);
+Route::post('/loginSubmit' , [LoginUser::class , 'loginSubmit']);
+
+
 
