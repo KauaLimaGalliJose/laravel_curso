@@ -1,3 +1,61 @@
+{{-- Verifica Formulario --}}
+
+@php
+    //variaveis
+    $senha = null;
+    $user = null;
+    $local = null;
+    $erroSession = null;
+    $erroSession_local = null;
+    $ErroUsuarioDelete;
+
+    //Inputs Estilos
+    $estilo_In_Local = null;
+    $estilo_In_User = null;
+    $estilo_In_Senha = null;
+@endphp
+
+{{-- Erros de Validação Senha --}}
+@error('senha')
+    @php
+        $senha = $message;
+        $estilo_In_Senha = 'is-invalid';
+    @endphp
+@enderror
+
+{{-- Erros de Validação Usuario --}}
+@error('usuario')
+    @php
+        $user = $message;
+        $estilo_In_User = 'is-invalid';
+    @endphp
+@enderror
+
+{{-- Erros de Validação Local --}}
+@error('local')
+    @php
+        $local = $message;
+        $estilo_In_Local = 'is-invalid';
+    @endphp
+@enderror
+
+{{-- Verificado Pelo Banco de Dados ------------------- --}}
+@if (session('ErroLogin'))
+    @php
+        $erroSession = 'Senha ou Usuarios Incorretos ';
+        $estilo_In_User = 'is-invalid';
+        $estilo_In_Senha = 'is-invalid';
+    @endphp
+@endif
+
+@if (session('ErroLocal'))
+    @php
+        $erroSession_local = 'Permição Negada';
+        $estilo_In_Local = 'is-invalid';
+    @endphp
+@endif
+
+
 @extends('layouts.cabecalho.cabecalho')
 
 @section('div_conteiner')
@@ -17,84 +75,49 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Usuário</label>
-                                <input name="usuario" type="text" class="form-control @error('usuario') is-invalid @enderror " value="{{ old('usuario') }}">
-                                
-                                {{-- Erros de Validação --}}
-                                @error('usuario')
-                                    <label class="text-danger">{{ $message }}</label>
-                                @enderror
+                                <input name="usuario" type="text"
+                                    class="form-control  bg-secondary bg-opacity-10 border-2 {{ $estilo_In_User }}"
+                                    value="{{ old('usuario') }}">
+
+                                {{-- Erros Usuario --}}
+                                <label class="text-danger ">{{ $user }}</label>
+                                <label class="text-danger ">{{ $erroSession }}</label>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Senha</label>
+                                <input name="senha" type="text"
+                                    class="form-control bg-secondary bg-opacity-10 border-2 {{ $estilo_In_Senha }}"
+                                    id="tokenInput" value="{{ old('senha') }}" placeholder="">
+
+                                {{-- Erros Senha --}}
+                                <label class="text-danger ">{{ $senha }}</label>
+                                <label class="text-danger ">{{ $erroSession }}</label>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Local</label>
-                                <select name="local" class="form-select @error('local') is-invalid @enderror">
-                                    <option>Escritório</option>
-                                    <option>Operação</option>
-                                    <option>Administrador</option>
+                                <select name="local" class="form-select bg-secondary bg-opacity-10 border-2 {{ $estilo_In_Local }}">
+
+                                    <option class="form-select" value="escritorio" {{ old('local') == 'escritorio' ? 'selected' : '' }}>
+                                        Escritório
+                                    </option>
+
+                                    <option class="form-select" value="operacao" {{ old('local') == 'operacao' ? 'selected' : '' }}>
+                                        Operação
+                                    </option>
+
+                                    <option class="form-select" value="adm" {{ old('local') == 'adm' ? 'selected' : '' }}>
+                                        Administrador
+                                    </option>
+
                                 </select>
-
-                                {{-- Erros de Validação --}}
-                                @error('local')
-                                    <label class="text-danger">{{ $message }}</label>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Token</label>
-                                <input name="token" type="number"
-                                    class="form-control @error('token') is-invalid @enderror" id="tokenInput"
-                                    value="{{ old('token') }}" placeholder="Escreva aqui..." min="0">
-
-                                {{-- Erros de Validação --}}
-                                @error('token')
-                                    <label class="text-danger">{{ $message }}</label>
-                                @enderror
+                                <label class="text-danger ">{{ $erroSession_local }}</label>
                             </div>
 
                             <button class="btn btn-primary w-100 mb-3 py-2 mt-3" type="submit">
                                 Enviar
                             </button>
-
-                            <!-- Teclado Numérico -->
-                            <div id="numeros_div" class="d-flex row w-100 ">
-                                <div class="d-flex align-items-center justify-content-center  py-2">
-
-                                    <button type="button"
-                                        class="btn btn-outline-primary me-3 ms-3 col-4 py-4 "onclick="numeroBtn(1)">1</button>
-                                    <button type="button" class="btn btn-outline-primary me-3 col-4 py-4"
-                                        onclick="numeroBtn(2)">2</button>
-                                    <button type="button" class="btn btn-outline-primary col-4 py-4"
-                                        onclick="numeroBtn(3)">3</button>
-
-                                </div>
-
-                                <div class="d-flex align-items-center justify-content-center  py-2">
-                                    <button type="button" class="btn btn-outline-primary me-3 ms-3 col-4 py-4"
-                                        onclick="numeroBtn(4)">4</button>
-                                    <button type="button" class="btn btn-outline-primary me-3 col-4 py-4"
-                                        onclick="numeroBtn(5)">5</button>
-                                    <button type="button" class="btn btn-outline-primary  col-4 py-4"
-                                        onclick="numeroBtn(6)">6</button>
-
-                                </div>
-
-                                <div class="d-flex align-items-center justify-content-center  py-2">
-                                    <button type="button" class="btn btn-outline-primary me-3 ms-3 col-4 py-4"
-                                        onclick="numeroBtn(7)">7</button>
-                                    <button type="button" class="btn btn-outline-primary me-3 col-4 py-4"
-                                        onclick="numeroBtn(8)">8</button>
-                                    <button type="button" class="btn btn-outline-primary col-4 py-4"
-                                        onclick="numeroBtn(9)">9</button>
-
-                                </div>
-
-                                <div class="d-flex align-items-center justify-content-center  py-2">
-                                    <button type="button" class="btn btn-outline-primary ms-3 col-6 py-4"
-                                        onclick="numeroBtn(0)">0</button>
-                                    <button type="button" class="btn btn-danger col-6 ms-3 py-4"
-                                        onclick="limparBtn()">Limpar Tudo</button>
-                                </div>
-                            </div>
 
                         </form>
 
@@ -105,20 +128,9 @@
         </div>
 
         <!-- LADO DIREITO -->
-        <div id="modelo3D" class="bg-light d-none d-lg-flex w-100 align-items-center justify-content-center">
+        <div id="modelo3D" class=" d-flex d-lg-flex w-100 align-items-center justify-content-center">
 
         </div>
 
     </div>
-
-    <script>
-        function numeroBtn(numero) {
-            const input = document.getElementById('tokenInput');
-            input.value += numero;
-        }
-
-        function limparBtn() {
-            document.getElementById('tokenInput').value = '';
-        }
-    </script>
 @endsection

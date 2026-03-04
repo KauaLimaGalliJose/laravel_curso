@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,41 +15,65 @@ class LoginUser extends Controller
 
     public function loginSubmit(Request $dados){
 
-        // Validação 
+        // Validação =============================
         $dados->validate(
             // rules
             [
                 'usuario' => 'required',
-                'token' => 'required|min:4|max:7',
+                'senha' => 'required|min:4',
+                'local' => 'required',
 
             ],
             //params
             [
                 // se estiver vazio
                 'usuario.required' => "Não Pode estar vazio" ,
-                'token.required' => "Não Pode estar vazio" ,
+                'senha.required' => "Não Pode estar vazio" ,
+                'local.required' => "Não Pode estar vazio",
 
                 //outros erros
-                'token.min' => "O minimo é 4 caracteres",
-                'token.max' => "O maximo é 7 caracteres",
+                'senha.min' => "O minimo é 6 caracteres",
             ]
         );
+        
+        $usuario = $dados->input('usuario');
+        $local = $dados->input('local');
+        $senha = $dados->input('senha');
 
-        $usuario =$dados->input('usuario');
+        $bancoUser = usuario::where('nome' , $usuario)
+                                ->first();
+
+        // se o banco retornar vazio ele entra no if
+        if(!$bancoUser){
+
+            return redirect()->back()->withInput()->with('ErroLogin' , 'Erro Usuario ou Senha Incorretos');
+            // redirect() redireciona para pagina anterior back() volta para pagina anterior 
+        }
+
+        if($bancoUser->deleted_at !== null){
+
+            return redirect()->back()->withInput()->with('ErroUsuarioDelete' , 'Erro_Usuario_Delete');
+
+        }
+
+        if(!password_verify($senha, $bancoUser->senha)){
+
+            return redirect()->back()->withInput()->with('ErroLogin' , 'Erro Usuario ou Senha Incorretos');
+
+        }
+        
+        if($local !== $bancoUser->tipo){
+
+            return redirect()->back()->withInput()->with('ErroLocal' , 'Erro Tipo Incorreto');
+
+        }
+
+        echo '<pre>';
+        print_r($bancoUser);
+
+        // ==========================================
 
         
-        //conection
-        try{
-            
-            DB::connection()->getPdo();
-            echo 'conection Ok';
-        }
-        catch(\PDOException $e){
-                
-            echo "Erro conexão Banco =>" . $e->getMessage();
-            }
-            
-        echo $usuario;
     }
 
     public function logout(){
