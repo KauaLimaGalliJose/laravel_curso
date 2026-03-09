@@ -59,7 +59,7 @@
 @extends('layouts.cabecalho.cabecalho')
 
 @section('div_conteiner')
-    <div class="d-lg-flex min-vh-100">
+    <div class=" fundo_Gratinante d-lg-flex min-vh-100">
 
         <!-- LADO ESQUERDO (FORM) -->
         <div class="contents d-flex align-items-center justify-content-center w-100">
@@ -97,17 +97,21 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Local</label>
-                                <select name="local" class="form-select bg-secondary bg-opacity-10 border-2 {{ $estilo_In_Local }}">
+                                <select name="local"
+                                    class="form-select bg-secondary bg-opacity-10 border-2 {{ $estilo_In_Local }}">
 
-                                    <option class="form-select" value="escritorio" {{ old('local') == 'escritorio' ? 'selected' : '' }}>
+                                    <option class="form-select" value="escritorio"
+                                        {{ old('local') == 'escritorio' ? 'selected' : '' }}>
                                         Escritório
                                     </option>
 
-                                    <option class="form-select" value="operacao" {{ old('local') == 'operacao' ? 'selected' : '' }}>
+                                    <option class="form-select" value="operacao"
+                                        {{ old('local') == 'operacao' ? 'selected' : '' }}>
                                         Operação
                                     </option>
 
-                                    <option class="form-select" value="adm" {{ old('local') == 'adm' ? 'selected' : '' }}>
+                                    <option class="form-select" value="adm"
+                                        {{ old('local') == 'adm' ? 'selected' : '' }}>
                                         Administrador
                                     </option>
 
@@ -128,8 +132,50 @@
         </div>
 
         <!-- LADO DIREITO -->
-        <div id="modelo3D" class=" d-flex d-lg-flex w-100 align-items-center justify-content-center">
+        <div id="Logo" class=" d-flex d-lg-flex w-100 align-items-center justify-content-center">
+            <svg width="500" height="400" fill="currentColor">
 
+                {{-- Animação para o Titulo e Coroa SVG --}}
+                <style>
+                    .texto {
+                        transform: translateX(300px);
+                        opacity: 0;
+                        animation: textoEntrar 1.5s ease forwards;
+                    }
+
+                    @keyframes textoEntrar {
+                        to {
+                            transform: translateX(0);
+                            opacity: 1;
+                        }
+                    }
+                </style>
+
+                <!-- Coroa -->
+                <g id="g9" fill="currentColor" transform="translate(-585.90172,-620.73042)">
+                    <g id="g58" inkscape:export-filename="Logo_Rj.svg" inkscape:export-xdpi="96"
+                        inkscape:export-ydpi="96" transform="translate(50.911688,-7.7781746)"
+                        fill="currentColor">
+                        <rect fill="currentColor" id="rect11"
+                            width="72.482002" height="72.482002" x="921.42493" y="-87.528809"
+                            transform="matrix(0.65937394,0.75181514,-0.65937394,0.75181514,0,0)" ry="5.0624571" />
+                        <g id="g56" transform="translate(132.64583,-101.24656)" fill="currentColor">
+                            <path fill="currentColor"
+                                d="m 403.04686,749.31211 33.96245,140.97622 51.90488,0.3204 39.72966,-41.01126 -5.76721,-7.04881 -38.12766,40.05006 -39.72966,-0.6408 -25.95244,-105.41177 1.2816,-0.6408 18.90363,16.98123 54.46809,50.30288 7.36921,-5.12641 -93.23655,-86.18774 c 0,0 -0.3204,-0.9612 -4.806,-2.5632 z"
+                                id="path26" />
+                            <path fill="currentColor"
+                                d="m 662.21707,749.31211 -33.96245,140.97622 -51.90488,0.3204 -39.72966,-41.01126 5.76721,-7.04881 38.12766,40.05006 39.72966,-0.6408 25.95244,-105.41177 -1.2816,-0.6408 -18.90363,16.98123 -54.46809,50.30288 -7.36921,-5.12641 93.23655,-86.18774 c 0,0 0.3204,-0.9612 4.806,-2.5632 z"
+                                id="path26-5" />
+                        </g>
+                    </g>
+                </g>
+
+                <!-- Texto -->
+                <text x="20" y="250" class="texto" fill="currentColor" font-size="40">
+                    Bem Vindo!!
+                </text>
+
+            </svg>
         </div>
 
     </div>

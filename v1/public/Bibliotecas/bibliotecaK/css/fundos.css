@@ -1,0 +1,8 @@
+.fundo_Gratinante{
+    min-height:100vh;
+    background: linear-gradient(
+        135deg,
+        color-mix( in srgb , var(--bs-body-bg) 10% , rgba(0, 166, 255, 0.445)),
+        color-mix(in srgb, var(--bs-primary) 60%, rgba(192, 95, 95, 0.519))
+    );
+}

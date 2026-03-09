@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\usuario;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class LoginUser extends Controller
 {
@@ -68,16 +67,28 @@ class LoginUser extends Controller
 
         }
 
+        // update last login
+        $bancoUser->last_login = date('Y-m-d H:i:s');
+
+        // login usuario
+        session([
+            'user' => [
+                'nome' => $bancoUser->nome,
+                'tipo' => $bancoUser->tipo,
+            ]
+        ]);
+
         echo '<pre>';
-        print_r($bancoUser);
 
         // ==========================================
-
+        return redirect('/');
         
     }
 
     public function logout(){
 
-        echo "Login_aut";
+        // tirar um Usuario da session
+        session()->forget('user');
+        return redirect()->to('/login');
     }
 }
