@@ -6,3 +6,12 @@
         color-mix(in srgb, var(--bs-primary) 60%, rgba(192, 95, 95, 0.519))
     );
 }
+
+.fundo_Gratinante_menu{
+    min-height: 100vh;
+
+    background: radial-gradient(
+        color-mix(in srgb, var(--bs-primary) 50%, rgb(146,208,255)),
+        color-mix(in srgb, var(--bs-body-bg) 0%, rgba(0,166,255,0.45))
+    );
+}

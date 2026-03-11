@@ -9,6 +9,6 @@ class HomeController extends Controller
     //
     public function home(){
 
-       return view('telas.escritorio.escritorio');
+       return view('telas.home.home');
     }
 }

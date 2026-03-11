@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" data-bs-theme="ligth">
+<html lang="pt-br" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,11 +13,11 @@
     <link rel="stylesheet" href="{{ asset('Bibliotecas/bibliotecaK/css/fundos.css') }}">
 
     <!-- Scripts JS -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="{{ asset('Bibliotecas/bootstrap/bootstrap.bundle.min.js') }}" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous" defer></script>
 </head>
 <body >
     
-    @yield('div_menu')
     @yield('div_conteiner')
 
 </body>
