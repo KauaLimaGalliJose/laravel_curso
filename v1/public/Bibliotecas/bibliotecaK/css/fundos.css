@@ -12,6 +12,7 @@
 
     background: radial-gradient(
         color-mix(in srgb, var(--bs-primary) 50%, rgb(146,208,255)),
-        color-mix(in srgb, var(--bs-body-bg) 0%, rgba(0,166,255,0.45))
+        color-mix(in srgb, var(--bs-body-bg) 0%, rgb(196, 210, 218))
     );
+    
 }
