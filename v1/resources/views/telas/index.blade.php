@@ -15,7 +15,7 @@
     $estilo_In_Senha = null;
 @endphp
 
-{{-- Erros de Validação Senha --}}
+{{-- Erros  Senha --}}
 @error('senha')
     @php
         $senha = $message;
@@ -23,7 +23,7 @@
     @endphp
 @enderror
 
-{{-- Erros de Validação Usuario --}}
+{{-- Erros  Usuario --}}
 @error('usuario')
     @php
         $user = $message;
@@ -31,7 +31,7 @@
     @endphp
 @enderror
 
-{{-- Erros de Validação Local --}}
+{{-- Erros Local --}}
 @error('local')
     @php
         $local = $message;
@@ -86,7 +86,7 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Senha</label>
-                                <input name="senha" type="text"
+                                <input name="senha" type="password"
                                     class="form-control bg-secondary bg-opacity-10 border-2 {{ $estilo_In_Senha }}"
                                     id="tokenInput" value="{{ old('senha') }}" placeholder="">
 
